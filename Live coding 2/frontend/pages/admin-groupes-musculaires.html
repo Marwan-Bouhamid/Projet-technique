@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-blue-900 text-white p-4">
+            <h2 class="text-2xl font-bold p-3">Dashboard</h2>
+            <nav>
+                <a href="#" class="block p-3">Tableau de bord</a>
+                <a href="#" class="block p-3">Workouts</a>
+                <a href="#" class="block p-3 bg-blue-700">Groupes musculaires</a>
+            </nav>
+        </aside>
+        <main class="flex-1 p-3">
+            <div class="flex justify-between mb-4">
+                <h1 class="text-3xl font-bold">Gestion des Groupes Musculaires</h1>
+                <button  class="bg-blue-600 text-white p-4 rounded" id="btn-nouveau">Ajouter Groupe musculaire</button>
+            </div>
+            <div class="bg-white hidden " id="section_form">
+                <h3 class="text-2xl font-bold mb-4">Ajouter un groupe musculaire</h3>
+                <form id="form-groupe-musculaire" class="flex-col flex mb-3">
+                    <label class="mb-2">nome de groupe musculaire</label>
+                    <input type="text" id="name" class="mb-3 w-full border p-3" placeholder="nome de groupe musculaire" required>
+                    <label class="mb-2">description</label>
+                    <textarea name="description" id="description" class="mb-3 w-full border p-3" placeholder="Description" required></textarea>
+                    <div>
+                        <button type="submit" class="rounded bg-blue-600 text-white p-4">Enregistrer</button>
+                        <button id="btn-annuler" class="rounded bg-gray-500 text-white p-4">Annuler</button>
+
+                    </div>
+                </form>
+            </div>
+            <div>
+                <table class="w-full">
+                    <thead class="border-b bg-blue-900 text-white">
+                        <tr class="">
+                            <th class="p-3">ID</th>
+                            <th>name</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-groupe-musculaire">
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+    </div>
+    <script src="../js/groupes-musculaires.js"></script>
+</body>
+</html>
