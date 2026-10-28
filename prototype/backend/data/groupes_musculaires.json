@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "nom": "Pectoraux",
+        "description": "Muscles de la poitrine"
+    },
+    {
+        "id": 2,
+        "nom": "Dos",
+        "description": "Grand dorsal et trap\u00e8zes"
+    },
+    {
+        "id": 3,
+        "nom": "fasd",
+        "description": "fdsf"
+    }
+]
