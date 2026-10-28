@@ -1,0 +1,25 @@
+classDiagram
+    direction LR
+    class GroupeMusculaire {
+        -int|null id
+        -string name
+        -string description
+        +setName(string) void
+        +setDescription(string) void
+        +toArray() array
+        +fromArray(array) GroupeMusculaire
+    }
+    class GroupeMusculaireManager {
+        -string file
+        +findAll() GroupeMusculaire[]
+        +find(int) GroupeMusculaire
+        +create(GroupeMusculaire) GroupeMusculaire
+        +update(GroupeMusculaire) GroupeMusculaire
+        +delete(int) void
+    }
+    class ControleurAPI["api/groupes.php (contrôleur)"] {
+        +GET / POST / PUT / DELETE
+        +codes HTTP 200 201 400 404 409 422 500
+    }
+    ControleurAPI ..> GroupeMusculaireManager : utilise
+    GroupeMusculaireManager ..> GroupeMusculaire : crée / persiste

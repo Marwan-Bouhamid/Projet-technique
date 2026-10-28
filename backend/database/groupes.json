@@ -1,0 +1,5 @@
+[
+    {"id_group": 1, "name": "chest", "description": "Pectoraux"},
+    {"id_group": 2, "name": "legs", "description": "Jambes"},
+    {"id_group": 3, "name": "back", "description": "Dos"}
+]
