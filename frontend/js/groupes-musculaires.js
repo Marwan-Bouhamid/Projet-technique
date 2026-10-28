@@ -11,6 +11,7 @@ const formError = document.getElementById("form-error");
 const toasts = document.getElementById("toasts");
 
 let groupes = [];
+let editId = null;
 
 /* ---------- Utilitaires ---------- */
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -102,6 +103,9 @@ function afficherTableau() {
             </td>
 
             <td class="p-4">
+                <button class="btn-modifier bg-blue-600 text-white px-3 py-1 inline-flex items-center gap-2 disabled:opacity-60 mr-2" data-id="${groupe.id_group}">
+                    Modifier
+                </button>
                 <button class="btn-supprimer bg-red-600 text-white px-3 py-1 inline-flex items-center gap-2 disabled:opacity-60" data-id="${groupe.id_group}">
                     Supprimer
                 </button>
@@ -118,13 +122,26 @@ async function afficherGroupesMusculaires() {
     } catch (error) {
         ligneMessage(`<p class="text-red-600 mb-3">${esc(error.message)}</p>
             <button id="btn-retry" class="bg-blue-600 text-white px-4 py-2">Réessayer</button>`);
-        document.getElementById("btn-retry").addEventListener("click", afficherGroupesMusculaires);
+        document.getElementById("btn-retry").onclick = afficherGroupesMusculaires;
         toast(error.message, "error");
     }
 }
 
-/* ---------- Ajout ---------- */
-async function ajouterGroupeMusculaire() {
+/* ---------- Edition : charger un groupe dans le formulaire ---------- */
+function editerGroupe(id) {
+    const groupe = groupes.find((g) => g.id_group === id);
+    if (!groupe) return;
+    editId = id;
+    nameInput.value = groupe.name;
+    descriptionInput.value = groupe.description;
+    document.getElementById("form-title").textContent = "Modifier le groupe musculaire";
+    btnEnregistrer.textContent = "Modifier";
+    sectionForm.classList.remove("hidden");
+    nameInput.focus();
+}
+
+/* ---------- Ajout / Modification ---------- */
+async function sauverGroupeMusculaire() {
     const name = nameInput.value.trim();
     const description = descriptionInput.value.trim();
 
@@ -135,14 +152,20 @@ async function ajouterGroupeMusculaire() {
     }
     formError.classList.add("hidden");
 
-    setBusy(btnEnregistrer, true, "Enregistrement…");
+    setBusy(btnEnregistrer, true, editId ? "Modification…" : "Enregistrement…");
     try {
-        const res = await api("POST", { body: { name, description } });
-        groupes = [...groupes, res.data];
+        if (editId) {
+            const res = await api("PUT", { id: editId, body: { name, description } });
+            groupes = groupes.map((g) => (g.id_group === res.data.id_group ? res.data : g));
+            toast(res.message, "success");
+        } else {
+            const res = await api("POST", { body: { name, description } });
+            groupes = [...groupes, res.data];
+            toast(res.message, "success");
+        }
         afficherTableau();
         form.reset();
-        sectionForm.classList.add("hidden");
-        toast(res.message, "success");
+        annulerEdition();
     } catch (error) {
         toast(error.message, "error"); // doublon (409), validation (422), réseau…
     } finally {
@@ -150,40 +173,52 @@ async function ajouterGroupeMusculaire() {
     }
 }
 
+function annulerEdition() {
+    editId = null;
+    form.reset();
+    formError.classList.add("hidden");
+    document.getElementById("form-title").textContent = "Ajouter un groupe musculaire";
+    btnEnregistrer.textContent = "Enregistrer";
+    sectionForm.classList.add("hidden");
+}
+
 /* ---------- Suppression (délégation d'événements) ---------- */
 table.addEventListener("click", async (event) => {
-    const btn = event.target.closest(".btn-supprimer");
-    if (!btn) return;
-    const id = parseInt(btn.dataset.id);
+    const btnSuppr = event.target.closest(".btn-supprimer");
+    const btnModif = event.target.closest(".btn-modifier");
+    if (btnModif) {
+        const id = parseInt(btnModif.dataset.id);
+        editerGroupe(id);
+        return;
+    }
+    if (!btnSuppr) return;
+    const id = parseInt(btnSuppr.dataset.id);
     const groupe = groupes.find((g) => g.id_group === id);
     if (!confirm(`Supprimer « ${groupe.name} » ?`)) return;
 
-    setBusy(btn, true, "Suppression…");
+    setBusy(btnSuppr, true, "Suppression…");
     try {
         const res = await api("DELETE", { id });
         groupes = groupes.filter((g) => g.id_group !== id);
         afficherTableau();
         toast(res.message, "success");
     } catch (error) {
-        setBusy(btn, false);
+        setBusy(btnSuppr, false);
         toast(error.message, "error");
     }
 });
 
 btnAjouter.addEventListener("click", () => {
+    annulerEdition();
     sectionForm.classList.remove("hidden");
     nameInput.focus();
 });
 
-btnAnnuler.addEventListener("click", () => {
-    form.reset();
-    formError.classList.add("hidden");
-    sectionForm.classList.add("hidden");
-});
+btnAnnuler.addEventListener("click", annulerEdition);
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
-    ajouterGroupeMusculaire();
+    sauverGroupeMusculaire();
 });
 
 document.addEventListener("DOMContentLoaded", () => {

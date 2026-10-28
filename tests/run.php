@@ -27,6 +27,7 @@ check('manager : doublon (insensible à la casse) -> 409', throws(fn() => $m->cr
 $m->update(new GroupeMusculaire('Dos large', 'MAJ', 1));
 check('manager : update', $m->find(1)->getName() === 'Dos large');
 check('manager : update inexistant -> 404', throws(fn() => $m->update(new GroupeMusculaire('Z', 'z', 99)), NotFoundException::class));
+check('manager : update vers doublon -> 409', throws(fn() => $m->update(new GroupeMusculaire('Jambes', 'MAJ doublon', 1)), DuplicateNameException::class));
 $m->delete(1);
 check('manager : delete', count($m->findAll()) === 1);
 check('manager : delete inexistant -> 404', throws(fn() => $m->delete(1), NotFoundException::class));
