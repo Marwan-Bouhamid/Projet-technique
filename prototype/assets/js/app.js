@@ -6,6 +6,7 @@ const tbody=document.getElementById("table-categories-body")
 const btnEnregister=document.getElementById("enregister")
 const api="backend/api/api.php"
 
+
 function Loading(isloading){
     if(isloading){
         btnEnregister.disabled=true
