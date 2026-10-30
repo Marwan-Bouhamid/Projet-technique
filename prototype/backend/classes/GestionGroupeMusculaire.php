@@ -5,14 +5,10 @@
 
         public function AfficherTous(){
             $data=[];
-            if(!file_exists(self::$dataFile)){
-                file_put_contents(self::$dataFile, json_encode([]));
-            }
+
             $json = file_get_contents(self::$dataFile);
             $groupes = json_decode($json, true);
-            if (!is_array($groupes)) {
-                $groupes = [];
-            }
+
             foreach($groupes as $groupe){
                 $g=new GroupeMusculaire($groupe["id"] ?? 0, $groupe["nom"] ?? '', $groupe["description"] ?? '');
                 $data[]=$g;

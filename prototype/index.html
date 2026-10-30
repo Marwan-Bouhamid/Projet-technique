@@ -3,16 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { primary: { 500: '#2673e8', 600: '#1c5bba' } }
-                }
-            }
+    <style>
+        /* Sidebar styling override for index.html to match the CSS style */
+        aside {
+            width: 16rem !important;
+            background-color: #111827 !important;
+            color: #ffffff !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
-    </script>
+        aside > div:first-child {
+            padding: 1.5rem !important;
+            border-bottom: 1px solid #1f2937 !important;
+        }
+        aside nav {
+            flex: 1 !important;
+            padding: 1rem !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+        }
+        aside nav a {
+            display: block !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.375rem !important;
+            color: #9ca3af !important;
+            text-decoration: none !important;
+            transition: background-color 0.2s, color 0.2s !important;
+        }
+        aside nav a:hover {
+            background-color: #1f2937 !important;
+            color: #ffffff !important;
+        }
+        aside nav a.bg-primary-600 {
+            background-color: #1c5bba !important;
+            color: #ffffff !important;
+            font-weight: 500 !important;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Gestion des Groupes Musculaires</title>
 </head>
 <body class="flex h-screen bg-gray-50">
@@ -24,8 +53,9 @@
             <h2 class="text-xl font-bold">Admin</h2>
         </div>
         <nav class="flex-1 p-4 space-y-2">
-            <a href="#" class="block px-4 py-2 rounded text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">Tableau de bord</a>
-            <a href="#" class="block px-4 py-2 rounded bg-primary-600 text-white font-medium">Groupes Musculaires</a>
+            <a href="dashboard.php" class="block px-4 py-2 rounded text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">Tableau de bord</a>
+            <a href="add_workout.php" class="block px-4 py-2 rounded text-gray-400 font-medium hover:bg-gray-800 hover:text-white transition-colors">Ajouter un Workout</a>
+            <a href="index.html" class="block px-4 py-2 rounded bg-primary-600 text-white font-medium">Groupes Musculaires</a>
         </nav>
     </aside>
 
@@ -40,12 +70,12 @@
         </header>
 
         <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            <div class="max-w-5xl mx-auto space-y-8">
+            <div class="max-w-5xl mx-auto space-y-8 w-full">
                 <div class="flex justify-between items-center">
                     <div>
                         <h1 class="text-2xl font-bold text-gray-900">Groupes Musculaires</h1>
                     </div>
-                    <button id="btn-show-form" class="bg-primary-600 text-white px-4 py-2 rounded shadow hover:bg-primary-700 transition">
+                    <button id="btn-show-form" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
                         + Nouveau Groupe Musculaire
                     </button>
                 </div>
@@ -69,7 +99,7 @@
                             <button type="button" id="btn-cancel-form" class="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-100 transition">
                                 Annuler
                             </button>
-                            <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition" id="enregister">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition" id="enregister">
                                 Enregistrer
                             </button>
                         </div>
