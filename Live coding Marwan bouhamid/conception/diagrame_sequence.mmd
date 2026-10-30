@@ -1,0 +1,11 @@
+sequenceDiagram
+    actor coach
+    participant Application_Fitness
+    coach->>Application_Fitness: demande la page d'ajouter groupe musculaire
+    Application_Fitness-->>coach: afficher formulaire d'ajout groupe musculaire
+    coach->>Application_Fitness: saisit les données (nom, description)
+    alt champ vide
+        Application_Fitness-->>coach: refuser l'enregistrement avec message d'erreur (les champs sont obligatoires)
+    else cas nominal
+        Application_Fitness-->>coach: enregistrer le groupe musculaire et rediriger vers la liste des groupes
+    end

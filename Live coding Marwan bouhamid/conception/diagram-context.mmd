@@ -1,0 +1,11 @@
+usecase-beta
+direction LR
+actor Admin("Admin")
+actor Coach("Coach")
+actor visiteur("visiteur")
+
+  system [ "application_fitness"]
+
+Admin -- Gère les utilisateurs et le contenu -- system
+Coach -- Crée et gère ses workouts -- system
+visiteur -- Consulte les séances publiées -- system

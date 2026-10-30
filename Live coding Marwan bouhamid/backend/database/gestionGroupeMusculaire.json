@@ -1,0 +1,32 @@
+[
+    {
+        "id": "1",
+        "nom": "chest",
+        "description": "Pectoraux"
+    },
+    {
+        "id": "2",
+        "nom": "legs",
+        "description": "Jambes"
+    },
+    {
+        "id": "0",
+        "nom": "back",
+        "description": "Dos"
+    },
+    {
+        "id": "0",
+        "nom": "ff",
+        "description": "f"
+    },
+    {
+        "id": "1",
+        "nom": "aDSA",
+        "description": "ASD"
+    },
+    {
+        "id": "2",
+        "nom": "m",
+        "description": "sdf"
+    }
+]

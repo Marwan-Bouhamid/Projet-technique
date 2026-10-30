@@ -188,13 +188,43 @@ input:focus, select:focus, textarea:focus {
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid #e5e7eb;
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
     text-align: left;
+    min-width: 600px;
+}
+
+/* Responsive sidebar and layout styles */
+@media (max-width: 768px) {
+    aside {
+        position: fixed !important;
+        inset: 0 auto 0 0 !important;
+        z-index: 50 !important;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        height: 100vh !important;
+    }
+    aside.open {
+        transform: translateX(0);
+    }
+    #sidebar-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+    }
+    #sidebar-backdrop.open {
+        display: block;
+    }
+    body {
+        overflow: auto;
+    }
 }
 
 thead {
