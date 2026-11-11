@@ -1,0 +1,22 @@
+usecase-beta
+direction LR
+actor Administrateur
+actor Coach
+actor Visiteur
+
+Administrateur --> "consulter les groupes musculaires"
+Administrateur --> "ajouter un groupe musculaire"
+Administrateur --> "modifier un groupe musculaire"
+Administrateur --> "supprimer un groupe musculaire"
+Administrateur --> "créer un coach"
+Administrateur --> "valider un workout"
+Administrateur --> "publier un workout"
+Administrateur --> "supprimer un workout publié"
+
+Coach --> "ajouter un workout"
+Coach --> "modifier un workout non publié"
+Coach --> "supprimer un workout non publié"
+Coach --> "changer son profil"
+Coach --> "réinitialiser son mot de passe"
+
+Visiteur --> "consulter les workouts"

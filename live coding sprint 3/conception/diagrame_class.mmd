@@ -1,0 +1,32 @@
+classDiagram
+    direction TB
+
+    class USER {
+        -int id
+        -string last_name
+        -string first_name
+        -string email
+        -string password
+        -date birth_date
+        -string role
+        -string specialty
+        -int years_experience
+    }
+
+    class WORKOUT {
+        -int id_workout
+        -string title
+        -string description
+        -int duration_min
+        -string difficulty_level
+    }
+
+    class MUSCLE_GROUP {
+        -int id_group
+        -string name
+        -string description
+    }
+
+    USER "1" -- "0..*" WORKOUT : CREATES
+    USER "0..*" -- "0..*" WORKOUT : FOLLOWS
+    WORKOUT "0..*" -- "1" MUSCLE_GROUP : TARGETS
