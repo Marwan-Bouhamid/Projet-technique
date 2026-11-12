@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../dao/WorktoutDAO.php";
 
-class controller {
+class WorkoutService extends BaseService {
     public WorkoutDao $gestion;
 
     public function __construct()

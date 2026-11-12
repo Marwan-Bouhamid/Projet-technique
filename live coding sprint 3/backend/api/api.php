@@ -7,10 +7,10 @@ require_once "../service/WorkoutService.php";
 
 header('Content-Type : application/json');
 $methode = $_SERVER["REQUEST_METHOD"];
-$controller = new controller();
+$WorkoutService = new WorkoutService();
 if($methode == "GET"){
-echo json_encode($controller->listerGroupeMusculaire());
+echo json_encode($WorkoutService->listerGroupeMusculaire());
 }
 if($methode == "POST"){
-echo json_encode($controller->ajouterGroupeMusculaire());
+echo json_encode($WorkoutService->ajouterGroupeMusculaire());
 }
